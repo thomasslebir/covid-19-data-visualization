@@ -21,5 +21,5 @@ The two dashboard notebooks, world_data_dashboard.ipynb and usa_data_dashboard.i
 ## More Information on Covid-19
 
 * [ECDC](https://www.ecdc.europa.eu/en/covid-19-pandemic)
-* [CDC] (https://www.cdc.gov/coronavirus/2019-ncov/index.html)
+* [CDC](https://www.cdc.gov/coronavirus/2019-ncov/index.html)
 * [Google Covid-19 Information](https://www.google.com/covid19/)
