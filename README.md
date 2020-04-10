@@ -3,10 +3,12 @@
 In the notebooks provided in this repo, I'll explore both worldwide and US-centric datasets of the Covid-19 virus to try to visualize its spread. I'll use plotly and ipywidgets to create interactive maps and charts, and voila to publish the results in an interactive dashboard.
 
 * Worldwide Data
-Worldwide data is published daily on the [ECDC website](https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases). I enriched the data for visualization purposes with [Wikipedia's ISO country codes](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) and [Statistics Time's breakdown of countries by region/continent](http://statisticstimes.com/geography/countries-by-continents.php)
+ 
+   Worldwide data is published daily on the [ECDC website](https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases). I enriched the data for visualization purposes with [Wikipedia's ISO country codes](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) and [Statistics Time's breakdown of countries by region/continent](http://statisticstimes.com/geography/countries-by-continents.php)
 
 * United States Data
-United States county and state-level data is updated daily on the [New York Times' github](https://github.com/nytimes/covid-19-data).
+
+   United States  county and state-level data is updated daily on the [New York Times' github](https://github.com/nytimes/covid-19-data).
 
 
 ## Notebooks
