@@ -11,10 +11,10 @@ United States county and state-level data is updated daily on the [New York Time
 
 ## Notebooks
 
-* Walkthrough
+### Walkthrough
 The world_data_walkthrough.ipynb is a step-by-step explanation of how to get started with plotly, first generating static maps and then adding animations, and how to work with ipywidgets to add useful interactivity to explore the data further. I also cover two other chart formats, namely bar charts and scatter plots.
 
-* Dashboard
+### Dashboard
 The two dashboard notebooks, world_data_dashboard.ipynb and usa_data_dashboard.ipynb, only contain final versions of the charts developed in the walkthrough. They are meant to be directly published as dashboards using voila, and as such have a different logic when it comes to using ipywidgets interactions.
 
 
