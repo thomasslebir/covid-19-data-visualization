@@ -7,8 +7,8 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import flask
 
-from covid_data_handler import CovidDataHandler
-from covid_chart_generator import CovidChartGenerator
+from covid_dashboard.data_handler import CovidDataHandler
+from covid_dashboard.chart_generator import CovidChartGenerator
 
 external_stylesheets = ['https://codepen.io/dadamson/pen/vPVxxq.css']
 
@@ -48,11 +48,12 @@ app.layout = html.Div([
                     html.Label("Map type"),
                     dcc.Dropdown(
                         id="map-type",
-                        options=[{"label": "Heatmap", "value": "choropleth"}, {"label": "Scatter map", "value": "scatter_geo"}],
+                        options=[{"label": "Heatmap", "value": "choropleth"}, {"label": "Scatter map", 
+                                                                               "value": "scatter_geo"}],
                         value="choropleth",
                         clearable=False
                     )
-                ], style={"width":"30%"})
+                ], style={"width": "30%"})
             ],
             style={"width": "30%", "margin": "auto", "margin-top": "3rem", "margin-bottom": "1rem", "display": "flex",
                    "justify-content": "space-between"}),
@@ -168,14 +169,16 @@ app.layout = html.Div([
               "margin": "auto"})
 ])
 
+
 @app.callback(
     Output("covid-map", "figure"),
     [Input("map-scope", "value"),
      Input("map-metric", "value"),
      Input("map-type", "value")]
 )
-def update_map(scope, metric, type):
-    return ccg.generate_animated_map(scope=scope, metric=metric, chart_type=type)
+def update_map(scope, metric, chart_type):
+    return ccg.generate_animated_map(scope=scope, metric=metric, chart_type=chart_type)
+
 
 @app.callback(
     Output("covid-bar", "figure"),
@@ -187,6 +190,7 @@ def update_map(scope, metric, type):
 def update_bar(scope, metric, cutoff, top_n):
     return ccg.generate_animated_bar_chart(scope=scope, x=metric, x_cutoff=cutoff, top_n=top_n)
 
+
 @app.callback(
     Output("covid-scatter", "figure"),
     [Input("scatter-x", "value"),
@@ -196,16 +200,18 @@ def update_bar(scope, metric, cutoff, top_n):
 def update_scatter(x, y, size):
     return ccg.generate_animated_scatter_plot(x=x, y=y, size=size)
 
+
 @app.server.route("/download_csv/")
 def download_csv():
-    strIO = io.StringIO()
-    cdh.covid_country_data.to_csv(strIO)
+    str_io = io.StringIO()
+    cdh.covid_country_data.to_csv(str_io)
     mem = io.BytesIO()
-    mem.write(strIO.getvalue().encode("utf-8"))
+    mem.write(str_io.getvalue().encode("utf-8"))
     mem.seek(0)
-    strIO.close()
+    str_io.close()
     return flask.send_file(mem, mimetype="text/csv", attachment_filename="covid19_ecdc_country_data.csv",
                            as_attachment=True)
+
 
 if __name__ == "__main__":
     app.run_server(8888, debug=True)
