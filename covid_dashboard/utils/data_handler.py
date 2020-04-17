@@ -1,6 +1,7 @@
 import math
-import requests
+import os
 
+import requests
 import numpy as np
 import pandas as pd
 
@@ -80,6 +81,12 @@ class CovidDataHandler:
         Returns:
             pd.DataFrame
         """
+        # Check if file exists
+        file_name = "{:%Y%m%d}_ecdc_data.csv".format(self.as_at_date)
+        if os.path.isfile(file_name):
+            df = pd.read_csv(file_name)
+            return df
+
         # Default arguments
         if url is None:
             url = self.world_data_url
@@ -120,6 +127,12 @@ class CovidDataHandler:
         df.columns = ["date_rep", "day", "month", "year", "cases", "deaths", "country", "alpha_2_code", "alpha_3_code",
                       "population_2018"]
 
+        # Export file to csv and delete previous files
+        df.to_csv(file_name)
+        old_files = [f for f in os.listdir() if "_ecdc_data.csv" in f and f != file_name]
+        for old_file in old_files:
+            os.remove(old_file)
+
         return df
 
     def get_iso_country_codes_data(self, url=None, table_index=0, matching_length=True):
@@ -135,6 +148,12 @@ class CovidDataHandler:
         Returns:
             pd.DataFrame
         """
+        # Check if file exists
+        file_name = "{:%Y%m%d}_iso_country_codes.csv".format(self.as_at_date)
+        if os.path.isfile(file_name):
+            df = pd.read_csv(file_name)
+            return df
+
         # Default arguments
         if url is None:
             url = self.iso_country_url
@@ -154,6 +173,12 @@ class CovidDataHandler:
             df = df[df["alpha_3_code"].str.len() == 3].copy()
             self.iso_country_codes_dropped = df_dropped
 
+        # Export & clean
+        df.to_csv(file_name)
+        old_files = [f for f in os.listdir() if "_iso_country_codes.csv" in f and f != file_name]
+        for old_file in old_files:
+            os.remove(old_file)
+
         return df
 
     def get_regions_continents_data(self, url=None, table_index=2):
@@ -167,6 +192,12 @@ class CovidDataHandler:
         Returns:
             pd.DataFrame
         """
+        # Check if file exists
+        file_name = "{:%Y%m%d}_regions_continents.csv".format(self.as_at_date)
+        if os.path.isfile(file_name):
+            df = pd.read_csv(file_name)
+            return df
+
         # Default argument
         if url is None:
             url = self.regions_continents_url
@@ -179,10 +210,15 @@ class CovidDataHandler:
         df.drop(columns=["No"], inplace=True)
         df.columns = [c.strip().lower().replace(" ", "_").replace("-", "_") for c in df.columns]
 
+        # Export & clean
+        df.to_csv(file_name)
+        old_files = [f for f in os.listdir() if "_regions_continents.csv" in f and f != file_name]
+        for old_file in old_files:
+            os.remove(old_file)
+
         return df
 
-    @staticmethod
-    def create_country_level_dataset(df_ecdc=None, df_iso=None, df_regions=None):
+    def create_country_level_dataset(self, df_ecdc=None, df_iso=None, df_regions=None):
         """
         Returns a clean dataset composed by assembling ECDC data and Wikipedia ISO country data.
         Ensures all countries are included and span all dates for compatibility with Plotly.
@@ -201,6 +237,12 @@ class CovidDataHandler:
         if any(x is None for x in [df_ecdc, df_iso, df_regions]):
             print("One or more DataFrame is missing (of type None), please check.")
             return
+
+        # Check if file exits
+        file_name = "{:%Y%m%d}_country_level_dataset.csv".format(self.as_at_date)
+        if os.path.isfile(file_name):
+            df = pd.read_csv(file_name)
+            return df
 
         # Format
         df = df_ecdc.copy()
@@ -269,5 +311,11 @@ class CovidDataHandler:
         for ce in country_exceptions:
             df.loc[df["country"] == ce, "continent"] = country_exceptions[ce]
         df["country"] = df["country"].str.replace("_", " ")
+
+        # Export & clean
+        df.to_csv(file_name)
+        old_files = [f for f in os.listdir() if "_country_level_dataset.csv" in f and f != file_name]
+        for old_file in old_files:
+            os.remove(old_file)
 
         return df

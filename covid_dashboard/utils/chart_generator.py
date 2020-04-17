@@ -1,7 +1,7 @@
 import math
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 import plotly.express as px
 import plotly.io as pio
 
@@ -125,8 +125,7 @@ class CovidChartGenerator:
                                 color_continuous_scale=px.colors.sequential.Reds, scope=scope,
                                 animation_frame="date_rep")
             fig.update_layout(
-                coloraxis_colorbar=dict(title=self.metrics[metric].capitalize(), thicknessmode="pixels", thickness=25,
-                                        lenmode="pixels", len=397, yanchor="middle", y=0.5, ticks="outside"))
+                coloraxis_colorbar=dict(title=self.metrics[metric].capitalize(), yanchor="middle", y=0.5, ticks="outside"))
         elif chart_type == "scatter_geo":
             fig = px.scatter_geo(df, locations="alpha_3_code", hover_name="country", size=metric, size_max=60,
                                  color_discrete_sequence=[px.colors.sequential.Reds[-2]], scope=scope,
@@ -138,8 +137,8 @@ class CovidChartGenerator:
 
         # Format figure
         fig.update_geos(showcountries=True, countrycolor="white", coastlinecolor="white", landcolor="grey")
-        fig.update_layout(margin=dict(r=0, t=0, l=0, b=0), width=900, height=700,
-                          title_text="<b>Covid-19 {} by country</b>".format(self.metrics[metric]), title_y=0.99,
+        fig.update_layout(margin=dict(r=0, t=50, l=0, b=0),
+                          title_text="<b>Covid-19 {} by country</b>".format(self.metrics[metric]), title_y=.99,
                           title_yanchor="top", title_x=0.5, title_xanchor="center")
         if plotly_template is None or plotly_template.lower() not in self.templates:
             fig.layout.template = self.template
@@ -225,14 +224,12 @@ class CovidChartGenerator:
         # Format
         max_val = df_check.max()[x]
         graph_scale = [0, self._scale_upper_limit(max_val)]
-        graph_height = 100 * len(df[y].unique())
 
         # Generate figure
         fig = px.bar(df, x=x, y=y, color=y, orientation="h", hover_name=y, hover_data=["date_rep", "country", y, x],
                      animation_frame="date_rep", range_x=graph_scale, labels=dict(x="", y=""),
                      color_discrete_sequence=px.colors.cyclical.Twilight)
-        fig.update_layout(width=1800, height=graph_height,
-                          title_text="<b>Covid-19 {} by {}</b>".format(self.metrics[x], y), title_y=0.99,
+        fig.update_layout(title_text="<b>Covid-19 {} by {}</b>".format(self.metrics[x], y), title_y=0.99,
                           title_yanchor="top", title_x=0.5, title_xanchor="center")
         if plotly_template is None or plotly_template.lower() not in self.templates:
             fig.layout.template = self.template
@@ -245,7 +242,7 @@ class CovidChartGenerator:
             pio.show(fig)
 
     def generate_animated_scatter_plot(self, df=None, x="cum_cases", y="mortality_rate", size="population_2018",
-                                       facet_col="continent", plotly_template=None):
+                                       facet_col=None, facet_row=None, plotly_template=None):
         """
         Generates an animated scatter plot from ECDC Covid-19 country-level data.
     
@@ -256,7 +253,8 @@ class CovidChartGenerator:
             Defaults to 'cum_cases'.
             y (str): metric to plot along the y axis. Values as per x. Defaults to 'mortality_rate'.
             size (str): metric used to size dots in the plot. Values as per x. Defaults to 'population_2018'.
-            facet_col (str): field use to separate into subplots. Set to None for one chart. Defaults to 'continent'.
+            facet_col (str): field use to separate into subplots. Set to None for one chart. Defaults to None.
+            facet_row (str): same as facet_col but in row form. Defaults to None.
             plotly_template (str): Plotly layout template to apply to generated figure. All accepted values accessible
             via self.templates.
 
@@ -291,12 +289,11 @@ class CovidChartGenerator:
 
         # Generate figure
         fig = px.scatter(df, x=x, y=y, range_x=x_scale, range_y=y_scale, size=size, facet_col=facet_col,
-                         hover_name="country", hover_data=["continent", x, y], size_max=60, animation_frame="date_rep",
-                         animation_group="alpha_3_code",
+                         facet_row=facet_row, hover_name="country", hover_data=["continent", x, y], size_max=60,
+                         animation_frame="date_rep", animation_group="alpha_3_code",
                          labels=dict(x=self.metrics[x].capitalize(), y=self.metrics[y].capitalize()), color="continent",
                          color_discrete_sequence=px.colors.cyclical.Twilight)
-        fig.update_layout(width=1800, height=600,
-                          title_text="<b>Covid-19 {} vs {} by continent & country".format(self.metrics[x],
+        fig.update_layout(title_text="<b>Covid-19 {} vs {} by continent & country".format(self.metrics[x],
                                                                                           self.metrics[y]),
                           title_y=0.99, title_yanchor="top", title_x=0.5, title_xanchor="center")
         if plotly_template is None or plotly_template.lower() not in self.templates:

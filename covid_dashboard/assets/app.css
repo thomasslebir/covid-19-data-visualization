@@ -1,0 +1,12 @@
+.control-refresh {
+    color: #4D4D4D;
+    background-color: #FFFFFF;
+    border-color: #BFBFBF;
+    transition: .3s;
+}
+
+.control-refresh:hover {
+    color: #FFFFFF;
+    background-color: #4D4D4D;
+    border-color: #4D4D4D;
+}

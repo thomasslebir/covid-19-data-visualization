@@ -104,9 +104,11 @@ pytz=2019.3=py_0
 pyyaml=5.3.1=py38h1de35cc_0
 pyzmq=19.0.0=py38h1fcdcd6_1
 readline=8.0=hcfe32e1_0
+redis=3.4.1=pypi_0
 regex=2020.4.4=py38h1de35cc_0
 requests=2.23.0=pyh8c360ce_2
 retrying=1.3.3=py_2
+rq=1.3.0=pypi_0
 send2trash=1.5.0=py_0
 setuptools=46.1.3=py38h32f6830_0
 six=1.14.0=py_1
