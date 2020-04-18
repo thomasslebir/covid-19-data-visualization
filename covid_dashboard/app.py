@@ -6,9 +6,10 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import flask
+import pandas as pd
 
-from covid_dashboard.utils.data_handler import CovidDataHandler
-from covid_dashboard.utils.chart_generator import CovidChartGenerator
+from utils.data_handler import CovidDataHandler
+from utils.chart_generator import CovidChartGenerator
 
 external_stylesheets = ['https://codepen.io/dadamson/pen/vPVxxq.css']
 
@@ -18,14 +19,20 @@ server = app.server
 
 cdh = CovidDataHandler()
 cdh.generate_country_level_dataset()
+data_date = pd.Timestamp(cdh.covid_country_data["date_rep"].max())
 ccg = CovidChartGenerator(df=cdh.covid_country_data, plotly_template="ggplot2", dash=True)
 
 app.layout = html.Div([
-    html.H1("Covid-19 ECDC data dashboard", style={"text-align": "center", "margin-bottom": "4rem"}),
+    html.H1("Covid-19 ECDC data dashboard",
+            id="main-title",
+            style={"text-align": "center", "margin-bottom": "2rem", "font-size": "2vw"}),
+    html.H3("Data as of {:%Y-%m-%d}".format(data_date),
+            id="sub-title",
+            style={"text-align": "center", "margin-bottom": "3rem", "font-size": "1.5vw"}),
 
     dcc.Tabs(
         style = {"width": "80vw", "display": "flex", "align-items": "center", "justify-content": "center",
-                 "margin": "auto"},
+                 "margin": "auto", "font-size": "0.75vw"},
         children=[
         dcc.Tab(label="Map", children=[
             html.Div(
@@ -40,7 +47,7 @@ app.layout = html.Div([
                             value="world",
                             clearable=False
                         )
-                    ], style={"width": "22%"}),
+                    ], style={"width": "22%", "font-size": "0.6vw"}),
                     html.Div([
                         html.Label("Metric"),
                         dcc.Dropdown(
@@ -49,7 +56,7 @@ app.layout = html.Div([
                             value="cum_cases",
                             clearable=False,
                         )
-                    ], style={"width": "22%"}),
+                    ], style={"width": "22%", "font-size": "0.6vw"}),
                     html.Div([
                         html.Label("Map type"),
                         dcc.Dropdown(
@@ -59,7 +66,7 @@ app.layout = html.Div([
                             value="choropleth",
                             clearable=False
                         )
-                    ], style={"width": "22%"}),
+                    ], style={"width": "22%", "font-size": "0.6vw"}),
                     html.Div([
                         html.Button("Refresh",
                                     id="map-refresh",
@@ -96,7 +103,7 @@ app.layout = html.Div([
                             value="world",
                             clearable=False
                         )
-                    ], style={"width": "18%"}),
+                    ], style={"width": "18%", "font-size": "0.6vw"}),
                     html.Div([
                         html.Label("Metric"),
                         dcc.Dropdown(
@@ -105,7 +112,7 @@ app.layout = html.Div([
                             value="cum_cases",
                             clearable=False
                         )
-                    ], style={"width": "18%"}),
+                    ], style={"width": "18%", "font-size": "0.6vw"}),
                     html.Div([
                         html.Label("Cutoff"),
                         dcc.Input(
@@ -113,7 +120,7 @@ app.layout = html.Div([
                             type="number",
                             value=0
                         )
-                    ], style={"width": "18%"}),
+                    ], style={"width": "18%", "font-size": "0.6vw"}),
                     html.Div([
                         html.Label("Top N"),
                         dcc.Input(
@@ -121,7 +128,7 @@ app.layout = html.Div([
                             type="number",
                             value=10
                         )
-                    ], style={"width": "18%"}),
+                    ], style={"width": "18%", "font-size": "0.6vw"}),
                     html.Div([
                         html.Button("Refresh",
                                     id="bar-refresh",
@@ -159,7 +166,7 @@ app.layout = html.Div([
                                 value="cum_cases",
                                 clearable=False
                             )
-                        ], style={"width": "18%"}),
+                        ], style={"width": "18%", "font-size": "0.6vw"}),
                         html.Div([
                             html.Label("Y"),
                             dcc.Dropdown(
@@ -168,7 +175,7 @@ app.layout = html.Div([
                                 value="mortality_rate",
                                 clearable=False
                             )
-                        ], style={"width": "18%"}),
+                        ], style={"width": "18%", "font-size": "0.6vw"}),
                         html.Div([
                             html.Label("Marker size metric"),
                             dcc.Dropdown(
@@ -178,7 +185,7 @@ app.layout = html.Div([
                                 value="population_2018",
                                 clearable=False
                             )
-                        ], style={"width": "18%"}),
+                        ], style={"width": "18%", "font-size": "0.6vw"}),
                         html.Div([
                             html.Label("Separate continents"),
                             dcc.Dropdown(
@@ -189,7 +196,7 @@ app.layout = html.Div([
                                 value="None",
                                 clearable=False
                             )
-                        ], style={"width": "18%"}),
+                        ], style={"width": "18%", "font-size": "0.6vw"}),
                         html.Div([
                             html.Button("Refresh",
                                         id="scatter-refresh",
@@ -219,28 +226,51 @@ app.layout = html.Div([
                        "width": "70vw", "height": "3vh", "margin": "auto", "margin-top": "3rem",
                        "margin-bottom": "1rem"},
                 children=[
-                    html.A(id="download-data",
-                           href="/download_csv/",
-                           children=[
-                                html.Button("Download CSV",
-                                            id="download-data-button",
-                                            n_clicks=0,
-                                            className="control-refresh"
-                                )
-                           ]
+                    html.Div(
+                        style={"width": "20%"},
+                        children=[
+                            html.A(id="download-data",
+                                   href="/download_csv/",
+                                   children=[
+                                        html.Button("Download CSV",
+                                                    id="download-data-button",
+                                                    n_clicks=0,
+                                                    className="control-refresh",
+                                                    style={"width": "70%"}
+                                        )
+                                   ]
+                            )
+                        ]
                     ),
-                    html.Button(
-                        children="Display data",
-                        id="display-data",
-                        n_clicks=0,
-                        className="control-refresh",
-                        style={"margin-left": "1vw"}
+                    html.Div(
+                        style={"width": "20%"},
+                        children=[
+                            html.Button(
+                                children="Display data",
+                                id="display-data",
+                                n_clicks=0,
+                                className="control-refresh",
+                                style={"width": "70%"}
+                            )
+                        ]
+                    ),
+                    html.Div(
+                        style={"width": "20%"},
+                        children=[
+                            html.Button(
+                                children="Refresh data",
+                                id="refresh-data",
+                                n_clicks=0,
+                                className="control-refresh",
+                                style={"width": "70%"}
+                            )
+                        ]
                     )
                 ]
             ),
             html.Div(
                 id="covid-data-div",
-                style={"display": "none", "align-items": "flex-start", "justify-content": "center", "height": "70vh",
+                style={"display": "flex", "align-items": "center", "justify-content": "center", "height": "50vh",
                        "width": "70vw", "margin": "auto"},
                 children=[
                     dcc.Loading(
@@ -290,7 +320,7 @@ def update_bar(n_clicks, scope, metric, cutoff, top_n):
      State("scatter-facet", "value")]
 )
 def update_scatter(n_clicks, x, y, size, facet):
-    if facet == None:
+    if facet == "None":
         fig = ccg.generate_animated_scatter_plot(x=x, y=y, size=size)
     elif facet == "facet_col":
         fig = ccg.generate_animated_scatter_plot(x=x, y=y, size=size, facet_col="continent")
@@ -303,38 +333,47 @@ def update_scatter(n_clicks, x, y, size, facet):
 
 @app.callback(
     [Output("data-table-loader", "children"),
-     Output("covid-data-div", "style"),
      Output("display-data", "children")],
     [Input("display-data", "n_clicks")],
     [State("display-data", "children")]
 )
 def serve_table(n_clicks, curr_val):
-    if curr_val == "Display data":
-        dt = dash_table.DataTable(
-                        id="data-table",
-                        columns=[{"name": col, "id": col} for col in cdh.covid_country_data.columns],
-                        data=cdh.covid_country_data.to_dict("records"),
-                        page_size=500,
-                        style_table={"overflowX": "scroll", "overflowY": "scroll", "height": "70vh",
-                                     "width": "70vw"},
-                        style_data_conditional=[{"if": {"row_index": "odd"},
-                                                 "backgroundColor": "rgb(248, 248, 248"}],
-                        style_header={"backgroundColor": "rgb(230, 230, 230", "fontWeight": "bold"},
-                        style_cell={"min_width": "100px"},
-                        fixed_rows={"headers": True, "data": 0}
-        )
-        div = html.Div([dt])
-        style = {"display": "flex", "align-items": "flex-start", "justify-content": "center", "height": "70vh",
+    dt = dash_table.DataTable(
+        id="data-table",
+        columns=[{"name": col, "id": col} for col in cdh.covid_country_data.columns],
+        data=cdh.covid_country_data.to_dict("records"),
+        page_size=250,
+        style_table={"overflowX": "scroll", "overflowY": "scroll", "height": "70vh",
+                     "width": "70vw"},
+        style_data_conditional=[{"if": {"row_index": "odd"},
+                                 "backgroundColor": "rgb(248, 248, 248"}],
+        style_header={"backgroundColor": "rgb(230, 230, 230", "fontWeight": "bold"},
+        style_cell={"min_width": "100px"},
+        fixed_rows={"headers": True, "data": 0}
+    )
+
+    if curr_val[0] == "Display data":
+        style = {"display": "flex", "align-items": "flex-start", "justify-content": "center", "height": "50vh",
                  "width": "70vw", "margin": "auto"}
         button_text = ["Hide data"]
     else:
-        div = html.Div(children=[])
-        style = {"display": "none", "align-items": "flex-start", "justify-content": "center", "height": "70vh",
+        style = {"display": "none", "align-items": "flex-start", "justify-content": "center", "height": "50vh",
                  "width": "70vw", "margin": "auto"}
         button_text = ["Display data"]
 
-    return div, style, button_text
+    div = html.Div(children=[dt], style=style)
+    return div, button_text
 
+@app.callback(
+    Output("sub-title", "children"),
+    [Input("refresh-data", "n_clicks")]
+)
+def refresh_data(n_clicks):
+    cdh.generate_country_level_dataset()
+    data_date = pd.Timestamp(cdh.covid_country_data["date_rep"].max())
+    sub_title = "Data as of {:%Y-%m-%d}".format(data_date)
+
+    return  sub_title
 
 @app.server.route("/download_csv/")
 def download_csv():
