@@ -125,7 +125,7 @@ class CovidDataHandler:
 
         df = pd.read_excel(resp.content)
         df.columns = ["date_rep", "day", "month", "year", "cases", "deaths", "country", "alpha_2_code", "alpha_3_code",
-                      "population_2018"]
+                      "population_2018", "ecdc_continent"]
 
         # Export file to csv and delete previous files
         df.to_csv(file_name)
