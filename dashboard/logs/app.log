@@ -1,0 +1,58 @@
+2020-05-09 16:59:43 — INFO - app.py - <module>:17 - Instantiating dash app
+2020-05-09 16:59:43 — INFO - app.py - <module>:22 - Instantiating data & charting utils
+2020-05-09 16:59:43 — INFO - data_handler.py - __init__:34 - Instantiating data handler
+2020-05-09 16:59:43 — INFO - data_handler.py - generate_all_datasets:99 - Starting generation of all data
+2020-05-09 16:59:43 — INFO - data_handler.py - generate_country_level_dataset:106 - Starting generation of country-level data
+2020-05-09 16:59:43 — INFO - data_handler.py - get_latest_ecdc_data:147 - Generating ECDC datsaset
+2020-05-09 16:59:43 — INFO - data_handler.py - get_latest_ecdc_data:153 - Reading from file
+2020-05-09 16:59:43 — INFO - data_handler.py - get_latest_ecdc_data:155 - ECDC data ready
+2020-05-09 16:59:43 — INFO - data_handler.py - get_iso_country_codes_data:219 - Generating ISO country codes
+2020-05-09 16:59:43 — INFO - data_handler.py - get_iso_country_codes_data:225 - Reading from file
+2020-05-09 16:59:43 — INFO - data_handler.py - get_iso_country_codes_data:227 - ISO country codes ready
+2020-05-09 16:59:43 — INFO - data_handler.py - get_regions_continents_data:271 - Generating regions & continents data
+2020-05-09 16:59:43 — INFO - data_handler.py - get_regions_continents_data:277 - Reading from file
+2020-05-09 16:59:43 — INFO - data_handler.py - get_regions_continents_data:279 - Regions & continents data ready
+2020-05-09 16:59:43 — INFO - data_handler.py - create_country_level_dataset:319 - Generating Covid-19 country-level dataset
+2020-05-09 16:59:43 — INFO - data_handler.py - create_country_level_dataset:330 - Reading from file
+2020-05-09 16:59:43 — INFO - data_handler.py - create_country_level_dataset:332 - Country-level dataset ready
+2020-05-09 16:59:43 — INFO - data_handler.py - generate_usa_datasets:125 - Starting generation of USA state and county-level data
+2020-05-09 16:59:43 — INFO - data_handler.py - generate_usa_state_data:428 - Generating USA state-level data
+2020-05-09 16:59:43 — INFO - data_handler.py - generate_usa_state_data:434 - Reading from file
+2020-05-09 16:59:43 — INFO - data_handler.py - generate_usa_state_data:436 - USA state-level dataset ready
+2020-05-09 16:59:43 — INFO - data_handler.py - generate_usa_county_data:520 - Generating USA county-level dataset
+2020-05-09 16:59:43 — INFO - data_handler.py - generate_usa_county_data:526 - Reading from file
+2020-05-09 16:59:43 — INFO - data_handler.py - generate_usa_county_data:528 - USA county-level dataset ready
+2020-05-09 16:59:43 — INFO - data_handler.py - generate_all_datasets:103 - All data generated
+2020-05-09 16:59:43 — INFO - chart_generator.py - __init__:14 - Instantiating chart generator
+2020-05-09 16:59:43 — INFO - app.py - <module>:28 - Generating dash app layout
+2020-05-09 16:59:43 — INFO - app.py - <module>:425 - Starting server
+2020-05-09 16:59:43 — INFO - dash.py - run_server:1811 - Running on http://127.0.0.1:8050/
+2020-05-09 16:59:43 — INFO - dash.py - run_server:1827 - Debugger PIN: 626-042-922
+2020-05-09 17:00:08 — INFO - data_handler.py - generate_country_level_dataset:106 - Starting generation of country-level data
+2020-05-09 17:00:08 — INFO - data_handler.py - get_latest_ecdc_data:147 - Generating ECDC datsaset
+2020-05-09 17:00:08 — INFO - data_handler.py - get_latest_ecdc_data:153 - Reading from file
+2020-05-09 17:00:08 — INFO - chart_generator.py - generate_animated_scatter_plot:282 - Generating animated scatter plot
+2020-05-09 17:00:08 — INFO - chart_generator.py - generate_animated_bar_chart:188 - Generating animated bar chart
+2020-05-09 17:00:08 — INFO - chart_generator.py - generate_animated_map:105 - Generating animated map
+2020-05-09 17:00:08 — INFO - chart_generator.py - generate_animated_scatter_plot:303 - Filtering data
+2020-05-09 17:00:08 — INFO - chart_generator.py - generate_animated_bar_chart:209 - Filtering data
+2020-05-09 17:00:08 — INFO - chart_generator.py - generate_animated_map:121 - Filtering data
+2020-05-09 17:00:08 — INFO - data_handler.py - get_latest_ecdc_data:155 - ECDC data ready
+2020-05-09 17:00:08 — INFO - data_handler.py - get_iso_country_codes_data:219 - Generating ISO country codes
+2020-05-09 17:00:08 — INFO - data_handler.py - get_iso_country_codes_data:225 - Reading from file
+2020-05-09 17:00:08 — INFO - data_handler.py - get_iso_country_codes_data:227 - ISO country codes ready
+2020-05-09 17:00:08 — INFO - data_handler.py - get_regions_continents_data:271 - Generating regions & continents data
+2020-05-09 17:00:08 — INFO - chart_generator.py - generate_animated_scatter_plot:313 - Generating figure
+2020-05-09 17:00:08 — INFO - data_handler.py - get_regions_continents_data:277 - Reading from file
+2020-05-09 17:00:08 — INFO - chart_generator.py - generate_animated_map:130 - Generating figure
+2020-05-09 17:00:08 — INFO - chart_generator.py - generate_animated_bar_chart:244 - Generating figure
+2020-05-09 17:00:08 — INFO - data_handler.py - get_regions_continents_data:279 - Regions & continents data ready
+2020-05-09 17:00:08 — INFO - data_handler.py - create_country_level_dataset:319 - Generating Covid-19 country-level dataset
+2020-05-09 17:00:08 — INFO - data_handler.py - create_country_level_dataset:330 - Reading from file
+2020-05-09 17:00:09 — INFO - data_handler.py - create_country_level_dataset:332 - Country-level dataset ready
+2020-05-09 17:00:15 — INFO - chart_generator.py - generate_animated_map:148 - Formatting figure
+2020-05-09 17:00:15 — INFO - chart_generator.py - generate_animated_map:158 - Animated map generated
+2020-05-09 17:00:33 — INFO - chart_generator.py - generate_animated_bar_chart:248 - Formatting figure
+2020-05-09 17:00:34 — INFO - chart_generator.py - generate_animated_bar_chart:256 - Animated bar chart generated
+2020-05-09 17:00:36 — INFO - chart_generator.py - generate_animated_scatter_plot:319 - Formatting figure
+2020-05-09 17:00:36 — INFO - chart_generator.py - generate_animated_scatter_plot:328 - Animated scatter plot generated
