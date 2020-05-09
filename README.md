@@ -19,7 +19,7 @@ The ```world_data_voila_dashboard.ipynb``` and ```usa_data_voila_dashboard.ipynb
 
 ## Dashboard
 
-* The full dashboard in ```covid_dashboard``` is generated with dash. It features all final versions of charts along with a logic to refresh data, visualize it and download it as a csv. I've also hosted it on [heroku](https://covid19-dash-app.herokuapp.com/).
+* The full dashboard in the ```dashboard``` folder is generated with dash. It features all final versions of charts along with a logic to refresh data, visualize it and download it as a csv. I've also hosted it on [heroku](https://covid19-dash-app.herokuapp.com/).
 
 
 ## More Information on Covid-19
