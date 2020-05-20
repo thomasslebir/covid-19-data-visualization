@@ -195,6 +195,7 @@ class CovidDataHandler:
         df = pd.read_excel(resp.content)
         df.columns = ["date_rep", "day", "month", "year", "cases", "deaths", "country", "alpha_2_code", "alpha_3_code",
                       "population_2018", "ecdc_continent"]
+        df["date_rep"] = pd.to_datetime(df["date_rep"], dayfirst=True).astype(str)
 
         # Export file to csv and delete previous files
         logger.info("Exporting ECDC data")

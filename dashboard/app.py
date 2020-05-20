@@ -21,13 +21,12 @@ server = app.server
 
 logger.info("Instantiating data & charting utils")
 cdh = CovidDataHandler()
-cdh.generate_all_datasets()
-data_date = pd.Timestamp(cdh.covid_country_data["date_rep"].max())
-ccg = CovidChartGenerator(df=cdh.covid_country_data, plotly_template="ggplot2", dash=True)
+ccg = CovidChartGenerator(plotly_template="ggplot2", dash=True)
+data_date = pd.Timestamp.today()
 
 logging.info("Generating dash app layout")
 app.layout = html.Div([
-    html.H1("Covid-19 ECDC data dashboard",
+    html.H1("Covid-19 Dashboard",
             id="main-title",
             style={"text-align": "center", "margin-bottom": "2rem", "font-size": "2vw"}),
     html.H3("Data as of {:%Y-%m-%d}".format(data_date),
@@ -326,6 +325,12 @@ app.layout = html.Div([
      State("map-type", "value")]
 )
 def update_map(n_clicks, scope, metric, chart_type):
+    if cdh.covid_country_data is None:
+        cdh.generate_country_level_dataset()
+
+    if ccg.df_country is None:
+        ccg.df_country = cdh.covid_country_data
+
     fig = ccg.generate_animated_map(scope=scope, metric=metric, chart_type=chart_type)
     return dcc.Graph(id="covid-map-graph", figure=fig, style={"responsive": True, "margin-top": "2rem",
                                                               "width": "70vw", "height": "70vh"})
@@ -340,6 +345,12 @@ def update_map(n_clicks, scope, metric, chart_type):
      State("bar-top-n", "value")]
 )
 def update_bar(n_clicks, scope, metric, cutoff, top_n):
+    if cdh.covid_country_data is None:
+        cdh.generate_country_level_dataset()
+
+    if ccg.df_country is None:
+        ccg.df_country = cdh.covid_country_data
+
     fig = ccg.generate_animated_bar_chart(scope=scope, x=metric, x_cutoff=cutoff, top_n=top_n)
     return dcc.Graph(id="covid-bar-graph", figure=fig, style={"responsive": True, "margin-top": "2rem",
                                                               "width": "70vw", "height": "70vh"})
@@ -354,6 +365,12 @@ def update_bar(n_clicks, scope, metric, cutoff, top_n):
      State("scatter-facet", "value")]
 )
 def update_scatter(n_clicks, x, y, size, facet):
+    if cdh.covid_country_data is None:
+        cdh.generate_country_level_dataset()
+
+    if ccg.df_country is None:
+        ccg.df_country = cdh.covid_country_data
+
     if facet == "None":
         fig = ccg.generate_animated_scatter_plot(x=x, y=y, size=size)
     elif facet == "facet_col":
@@ -372,6 +389,9 @@ def update_scatter(n_clicks, x, y, size, facet):
     [State("display-data", "children")]
 )
 def serve_table(n_clicks, curr_val):
+    if cdh.covid_country_data is None:
+        cdh.generate_country_level_dataset()
+
     dt = dash_table.DataTable(
         id="data-table",
         columns=[{"name": col, "id": col} for col in cdh.covid_country_data.columns],

@@ -10,9 +10,9 @@ logger = logging.getLogger(__name__)
 
 
 class CovidChartGenerator:
-    def __init__(self, df=None, plotly_template=None, plotly_renderer=None, dash=False):
+    def __init__(self, df_country=None, plotly_template=None, plotly_renderer=None, dash=False):
         logger.info("Instantiating chart generator")
-        self.df = df
+        self.df_country = df_country
         self.metrics = {"cases": "new cases", "deaths": "new deaths", "cum_cases": "cumulative cases",
                         "cum_deaths": "cumulative deaths", "mortality_rate": "mortality rate",
                         "fraction_infected": r"% of pop. infected", "fraction_deaths": r"% of pop. dead",
@@ -115,7 +115,7 @@ class CovidChartGenerator:
             return
 
         if df is None:
-            df = self.df.copy()
+            df = self.df_country.copy()
 
         # DataFrame filtering
         logger.info("Filtering data")
@@ -203,7 +203,7 @@ class CovidChartGenerator:
             return
 
         if df is None:
-            df = self.df.copy()
+            df = self.df_country.copy()
 
         # DataFrame filtering
         logger.info("Filtering data")
@@ -297,7 +297,7 @@ class CovidChartGenerator:
             return
 
         if df is None:
-            df = self.df.copy()
+            df = self.df_country.copy()
 
         # Filter out nulls in size columns
         logger.info("Filtering data")
