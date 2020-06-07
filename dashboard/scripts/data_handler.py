@@ -23,7 +23,7 @@ DEFAULT_URLS = {"world_data":               "https://www.ecdc.europa.eu/sites/de
                 "usa_county_population":    "https://www2.census.gov/programs-surveys/popest/tables/2010-2019/"
                                             "counties/totals/co-est2019-annres.xlsx"}
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 class CovidDataHandler:
@@ -31,7 +31,7 @@ class CovidDataHandler:
                  usa_state_data_url=None, usa_county_data_url=None, usa_state_codes_url=None,
                  usa_county_geojson_url=None, usa_state_population_url=None, usa_county_population_url=None,
                  as_at_date=None):
-        logger.info("Instantiating data handler")
+        LOGGER.info("Instantiating data handler")
         # URLs
         if world_data_url is None:
             self.world_data_url = DEFAULT_URLS["world_data"]
@@ -96,14 +96,14 @@ class CovidDataHandler:
         self.regions_continents_data = None
 
     def generate_all_datasets(self, as_at_date=None, max_consecutive_dates=5, walk_back=True):
-        logger.info("Starting generation of all data")
+        LOGGER.info("Starting generation of all data")
         self.generate_country_level_dataset(as_at_date=as_at_date, max_consecutive_dates=max_consecutive_dates,
                                             walk_back=walk_back)
         self.generate_usa_datasets()
-        logger.info("All data generated")
+        LOGGER.info("All data generated")
 
     def generate_country_level_dataset(self, as_at_date=None, max_consecutive_dates=5, walk_back=True):
-        logger.info("Starting generation of country-level data")
+        LOGGER.info("Starting generation of country-level data")
         # Retrieve all data for country-level dataset
         self.covid_country_raw_data = self.get_latest_ecdc_data(as_at_date=as_at_date,
                                                                 max_consecutive_dates=max_consecutive_dates,
@@ -115,14 +115,14 @@ class CovidDataHandler:
         data_sets = [self.covid_country_raw_data, self.iso_country_codes, self.regions_continents_data]
         integrity_check = [ds for ds in data_sets if ds is None]
         if len(integrity_check):
-            logger.warning("Unable to generate country-level dataset as the following are None: {}.".format(integrity_check))
+            LOGGER.warning("Unable to generate country-level dataset as the following are None: {}.".format(integrity_check))
             return
 
         self.covid_country_data = self.create_country_level_dataset(self.covid_country_raw_data, self.iso_country_codes,
                                                                     self.regions_continents_data)
 
     def generate_usa_datasets(self):
-        logger.info("Starting generation of USA state and county-level data")
+        LOGGER.info("Starting generation of USA state and county-level data")
         self.covid_usa_state_data = self.generate_usa_state_data()
         self.covid_usa_county_data = self.generate_usa_county_data()
 
@@ -144,18 +144,18 @@ class CovidDataHandler:
         Returns:
             pd.DataFrame
         """
-        logger.info("Generating ECDC datsaset")
+        LOGGER.info("Generating ECDC datsaset")
         # Check if file exists
         file_name = "{:%Y%m%d}_ecdc_data.csv".format(self.as_at_date)
         file_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
         file_path = os.path.join(file_folder, file_name)
         if os.path.isfile(file_path):
-            logger.info("Reading from file")
+            LOGGER.info("Reading from file")
             df = pd.read_csv(file_path)
-            logger.info("ECDC data ready")
+            LOGGER.info("ECDC data ready")
             return df
 
-        logger.info("Day file not found, generating from scratch")
+        LOGGER.info("Day file not found, generating from scratch")
         # Default arguments
         if url is None:
             url = self.world_data_url
@@ -170,12 +170,12 @@ class CovidDataHandler:
             file_url = "{}{:%Y-%m-%d}.xlsx".format(url, as_at_date)
             resp = requests.get(file_url)
         except:
-            logger.warning("Invalid URL.")
+            LOGGER.warning("Invalid URL.")
             return
 
         # Loop back/forward in dates while GET fails
         while resp.status_code != 200 and max_consecutive_dates > 1:
-            logger.warning("File retrieval failed for {:%Y-%m-%d}.".format(as_at_date))
+            LOGGER.warning("File retrieval failed for {:%Y-%m-%d}.".format(as_at_date))
             if walk_back:
                 as_at_date -= pd.Timedelta("1d")
             else:
@@ -185,8 +185,8 @@ class CovidDataHandler:
             resp = requests.get(file_url)
 
         if resp.status_code != 200:
-            logger.warning("File retrieval failed for {:%Y-%m-%d}.".format(as_at_date))
-            logger.warning("Maximum number of consecutive dates reached. Please check if URL is correct or expand "
+            LOGGER.warning("File retrieval failed for {:%Y-%m-%d}.".format(as_at_date))
+            LOGGER.warning("Maximum number of consecutive dates reached. Please check if URL is correct or expand "
                            "date window using max_consecutive_dates argument.")
             return
 
@@ -198,9 +198,9 @@ class CovidDataHandler:
         df["date_rep"] = pd.to_datetime(df["date_rep"], dayfirst=True).astype(str)
 
         # Export file to csv and delete previous files
-        logger.info("Exporting ECDC data")
+        LOGGER.info("Exporting ECDC data")
         self._export_and_clean(df, file_folder, file_name)
-        logger.info("ECDC data ready")
+        LOGGER.info("ECDC data ready")
 
         return df
 
@@ -217,28 +217,28 @@ class CovidDataHandler:
         Returns:
             pd.DataFrame
         """
-        logger.info("Generating ISO country codes")
+        LOGGER.info("Generating ISO country codes")
         # Check if file exists
         file_name = "{:%Y%m%d}_iso_country_codes.csv".format(self.as_at_date)
         file_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
         file_path = os.path.join(file_folder, file_name)
         if os.path.isfile(file_path):
-            logger.info("Reading from file")
+            LOGGER.info("Reading from file")
             df = pd.read_csv(file_path)
-            logger.info("ISO country codes ready")
+            LOGGER.info("ISO country codes ready")
             return df
 
-        logger.info("Day file not found, generating from scratch")
+        LOGGER.info("Day file not found, generating from scratch")
         # Default arguments
         if url is None:
             url = self.iso_country_url
 
         # Read HTML tables
-        logger.info("Reading data")
+        LOGGER.info("Reading data")
         tables = pd.read_html(url)
 
         # Load & format
-        logger.info("Formatting data")
+        LOGGER.info("Formatting data")
         df = tables[table_index]
         df.columns = df.columns.droplevel()
         df.columns = [c.split("[")[0].strip().lower().replace(" ", "_").replace("-", "_") for c in df.columns]
@@ -246,15 +246,15 @@ class CovidDataHandler:
 
         # Filter out countries where alpha_3_codes are too long
         if matching_length:
-            logger.info("Dropping invalid entries")
+            LOGGER.info("Dropping invalid entries")
             df_dropped = df[df["alpha_3_code"].str.len() > 3].copy()
             df = df[df["alpha_3_code"].str.len() == 3].copy()
             self.iso_country_codes_dropped = df_dropped
 
         # Export & clean
-        logger.info("Exporting ISO country codes")
+        LOGGER.info("Exporting ISO country codes")
         self._export_and_clean(df, file_folder, file_name)
-        logger.info("ISO country codes ready")
+        LOGGER.info("ISO country codes ready")
 
         return df
 
@@ -269,36 +269,36 @@ class CovidDataHandler:
         Returns:
             pd.DataFrame
         """
-        logger.info("Generating regions & continents data")
+        LOGGER.info("Generating regions & continents data")
         # Check if file exists
         file_name = "{:%Y%m%d}_regions_continents.csv".format(self.as_at_date)
         file_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
         file_path = os.path.join(file_folder, file_name)
         if os.path.isfile(file_path):
-            logger.info("Reading from file")
+            LOGGER.info("Reading from file")
             df = pd.read_csv(file_path)
-            logger.info("Regions & continents data ready")
+            LOGGER.info("Regions & continents data ready")
             return df
 
-        logger.info("Day file not found, generating from scratch")
+        LOGGER.info("Day file not found, generating from scratch")
         # Default argument
         if url is None:
             url = self.regions_continents_url
 
         # Read HTML tables
-        logger.info("Reading data")
+        LOGGER.info("Reading data")
         tables = pd.read_html(url)
 
         # Load & format
-        logger.info("Formatting data")
+        LOGGER.info("Formatting data")
         df = tables[table_index]
         df.drop(columns=["No"], inplace=True)
         df.columns = [c.strip().lower().replace(" ", "_").replace("-", "_") for c in df.columns]
 
         # Export & clean
-        logger.info("Exporting regions & continents data")
+        LOGGER.info("Exporting regions & continents data")
         self._export_and_clean(df, file_folder, file_name)
-        logger.info("Regions & continents data ready")
+        LOGGER.info("Regions & continents data ready")
 
         return df
 
@@ -317,10 +317,10 @@ class CovidDataHandler:
         Returns:
             pd.DataFrame
         """
-        logger.info("Generating Covid-19 country-level dataset")
+        LOGGER.info("Generating Covid-19 country-level dataset")
         # Safety check
         if any(x is None for x in [df_ecdc, df_iso, df_regions]):
-            logger.warning("One or more DataFrame is missing (of type None), please check.")
+            LOGGER.warning("One or more DataFrame is missing (of type None), please check.")
             return
 
         # Check if file exits
@@ -328,14 +328,14 @@ class CovidDataHandler:
         file_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
         file_path = os.path.join(file_folder, file_name)
         if os.path.isfile(file_path):
-            logger.info("Reading from file")
+            LOGGER.info("Reading from file")
             df = pd.read_csv(file_path)
-            logger.info("Country-level dataset ready")
+            LOGGER.info("Country-level dataset ready")
             return df
 
-        logger.info("Day file not found, generating from scratch")
+        LOGGER.info("Day file not found, generating from scratch")
         # Format
-        logger.info("Formatting data")
+        LOGGER.info("Formatting data")
         df = df_ecdc.copy()
         df.drop(columns=["day", "month", "year"], inplace=True)
         df["date_rep"] = df["date_rep"].astype(str)
@@ -349,7 +349,7 @@ class CovidDataHandler:
         frames = []
 
         # Fill in dates for countries already included in df_ecdc
-        logger.info("Filling missing dates")
+        LOGGER.info("Filling missing dates")
         for alpha_3_code in df["alpha_3_code"].unique():
             try:
                 df_country = df[df["alpha_3_code"] == alpha_3_code].copy()
@@ -371,7 +371,7 @@ class CovidDataHandler:
                 print("Issue encountered while adding dates to country code {}.".format(alpha_3_code))
 
         # Fill in missing countries
-        logger.info("Filling missing countries")
+        LOGGER.info("Filling missing countries")
         for alpha_3_code in missing_countries:
             df_missing = pd.DataFrame({"date_rep": all_dates})
             for col in ["cases", "deaths", "cum_cases", "cum_deaths"]:
@@ -382,12 +382,12 @@ class CovidDataHandler:
             df_missing["population_2018"] = np.NaN
 
         # Create full DataFrame
-        logger.info("Concatenating tidy dataframes")
+        LOGGER.info("Concatenating tidy dataframes")
         df = pd.concat(frames, ignore_index=True)
         df.sort_values(by=["country", "date_rep"], inplace=True)
 
         # Add indicators
-        logger.info("Calculating indicators")
+        LOGGER.info("Calculating indicators")
         df["mortality_rate"] = (df["cum_deaths"] / df["cum_cases"]).fillna(0)
         df["fraction_infected"] = df["cum_cases"] / df["population_2018"]
         df["fraction_deaths"] = df["cum_deaths"] / df["population_2018"]
@@ -398,7 +398,7 @@ class CovidDataHandler:
             df.loc[cd_nan, col] = np.NaN
 
         # Merge regions/continents
-        logger.info("Merging continent/regional data")
+        LOGGER.info("Merging continent/regional data")
         df = df.merge(df_regions[["iso_alpha3_code", "region_1", "region_2", "continent"]], how="left",
                       left_on="alpha_3_code", right_on="iso_alpha3_code").drop(columns=["iso_alpha3_code"])
         country_exceptions = {"Kosovo": "Europe", "Taiwan": "Asia", "Bonaire": "South America"}
@@ -407,9 +407,9 @@ class CovidDataHandler:
         df["country"] = df["country"].str.replace("_", " ")
 
         # Export & clean
-        logger.info("Exporting country-level dataset")
+        LOGGER.info("Exporting country-level dataset")
         self._export_and_clean(df, file_folder, file_name)
-        logger.info("Country-level dataset ready")
+        LOGGER.info("Country-level dataset ready")
 
         return df
 
@@ -426,18 +426,18 @@ class CovidDataHandler:
         Returns:
             pd.DataFrame
         """
-        logger.info("Generating USA state-level data")
+        LOGGER.info("Generating USA state-level data")
         # Check if file exits
         file_name = "{:%Y%m%d}_usa_state_level_dataset.csv".format(self.as_at_date)
         file_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
         file_path = os.path.join(file_folder, file_name)
         if os.path.isfile(file_path):
-            logger.info("Reading from file")
+            LOGGER.info("Reading from file")
             df = pd.read_csv(file_path)
-            logger.info("USA state-level dataset ready")
+            LOGGER.info("USA state-level dataset ready")
             return df
 
-        logger.info("Day file not found, generating from scratch")
+        LOGGER.info("Day file not found, generating from scratch")
         # Defaults
         if data_url is None:
             data_url = self.usa_state_data_url
@@ -449,13 +449,13 @@ class CovidDataHandler:
             state_code_table_index = 0
 
         # Read NYT data & pad FIPS
-        logger.info("Reading data")
+        LOGGER.info("Reading data")
         df = pd.read_csv(data_url)
         df["fips"] = df["fips"].astype(int).astype(str).str.zfill(2)
         df.rename(columns={"cases": "cum_cases", "deaths": "cum_deaths"}, inplace=True)
 
         # Make tidy
-        logger.info("Adding missing dates")
+        LOGGER.info("Adding missing dates")
         all_dates = pd.date_range(df["date"].min(), df["date"].max()).astype(str).tolist()
         frames = []
         for state in df["state"].unique():
@@ -474,14 +474,14 @@ class CovidDataHandler:
             frames.append(df_state_new)
 
         # State alpha codes
-        logger.info("Adding state alpha codes")
+        LOGGER.info("Adding state alpha codes")
         df_state_codes = pd.read_html(state_code_url)[state_code_table_index][:-1].copy()
         df_state_codes.columns = [c.strip().lower().replace(" ", "_") for c in df_state_codes.columns]
         df_state_codes.rename(columns={"postal_code": "alpha_code"}, inplace=True)
         df_state_codes["fips"] = df_state_codes["fips"].astype(int).astype(str).str.zfill(2)
 
         # Add missing states
-        logger.info("Adding missing states")
+        LOGGER.info("Adding missing states")
         missing_fips = set(df_state_codes["fips"]).difference(set(df["fips"]))
         if len(missing_fips):
             for fips in missing_fips:
@@ -492,18 +492,18 @@ class CovidDataHandler:
                     df_state[col] = 0
                 frames.append(df_state)
 
-        logger.info("Concatenating tidy dataframes")
+        LOGGER.info("Concatenating tidy dataframes")
         df = pd.concat(frames, ignore_index=True)
         df.sort_values(by=["state", "date"], inplace=True)
 
         # Merge
-        logger.info("Merging data")
+        LOGGER.info("Merging data")
         df = df.merge(df_state_codes[["fips", "alpha_code"]], how="left", left_on="fips", right_on="fips")
 
         # Export & clean
-        logger.info("Exporting USA state-level data")
+        LOGGER.info("Exporting USA state-level data")
         self._export_and_clean(df, file_folder, file_name)
-        logger.info("USA state-level dataset ready")
+        LOGGER.info("USA state-level dataset ready")
 
         return df
 
@@ -518,24 +518,24 @@ class CovidDataHandler:
         Returns:
             pd.DataFrame
         """
-        logger.info("Generating USA county-level dataset")
+        LOGGER.info("Generating USA county-level dataset")
         # Check if file exits
         file_name = "{:%Y%m%d}_usa_county_level_dataset.csv".format(self.as_at_date)
         file_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
         file_path = os.path.join(file_folder, file_name)
         if os.path.isfile(file_path):
-            logger.info("Reading from file")
+            LOGGER.info("Reading from file")
             df = pd.read_csv(file_path)
-            logger.info("USA county-level dataset ready")
+            LOGGER.info("USA county-level dataset ready")
             return df
 
-        logger.info("Day file not found, generating from scratch")
+        LOGGER.info("Day file not found, generating from scratch")
         # Defaults
         if url is None:
             url = self.usa_county_data_url
 
         # Read data, fill in missing FIPS and remove cases from unknown counties
-        logger.info("Reading data")
+        LOGGER.info("Reading data")
         df = pd.read_csv(url)
         df.loc[df["county"] == "New York City", "fips"] = 36061  # NYC mapped to Manhattan
         df.loc[df["county"] == "Kansas City", "fips"] = 20085    # FIPS for most of Kansas City
@@ -544,7 +544,7 @@ class CovidDataHandler:
         df.rename(columns={"cases": "cum_cases", "deaths": "cum_deaths"}, inplace=True)
 
         # Make tidy
-        logger.info("Adding missing dates")
+        LOGGER.info("Adding missing dates")
         all_dates = pd.date_range(df["date"].min(), df["date"].max()).astype(str).tolist()
         frames = []
         for fips in df["fips"].unique():
@@ -563,14 +563,14 @@ class CovidDataHandler:
                 df_county_new[col] = df_county_new[f"cum_{col}"].diff().fillna(0)
             frames.append(df_county_new)
 
-        logger.info("Concatenating tidy dataframes")
+        LOGGER.info("Concatenating tidy dataframes")
         df = pd.concat(frames, ignore_index=True)
         df.sort_values(by=["county", "date"], inplace=True)
 
         # Export & clean
-        logger.info("Exporting USA county-level data")
+        LOGGER.info("Exporting USA county-level data")
         self._export_and_clean(df, file_folder, file_name)
-        logger.info("USA county-level data ready")
+        LOGGER.info("USA county-level data ready")
 
         return df
 

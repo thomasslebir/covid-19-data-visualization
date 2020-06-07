@@ -1,51 +1,150 @@
-2020-05-16 15:01:21 — INFO - data_handler.py - __init__:34 - Instantiating data handler
-2020-05-16 15:01:26 — INFO - data_handler.py - generate_all_datasets:99 - Starting generation of all data
-2020-05-16 15:01:26 — INFO - data_handler.py - generate_country_level_dataset:106 - Starting generation of country-level data
-2020-05-16 15:01:26 — INFO - data_handler.py - get_latest_ecdc_data:147 - Generating ECDC datsaset
-2020-05-16 15:01:26 — INFO - data_handler.py - get_latest_ecdc_data:158 - Day file not found, generating from scratch
-2020-05-16 15:01:26 — DEBUG - connectionpool.py - _new_conn:955 - Starting new HTTPS connection (1): www.ecdc.europa.eu:443
-2020-05-16 15:01:27 — DEBUG - connectionpool.py - _make_request:428 - https://www.ecdc.europa.eu:443 "GET /sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-2020-05-16.xlsx HTTP/1.1" 200 823237
-2020-05-16 15:01:29 — INFO - data_handler.py - get_latest_ecdc_data:201 - Exporting ECDC data
-2020-05-16 15:01:29 — INFO - data_handler.py - get_latest_ecdc_data:203 - ECDC data ready
-2020-05-16 15:01:29 — INFO - data_handler.py - get_iso_country_codes_data:220 - Generating ISO country codes
-2020-05-16 15:01:29 — INFO - data_handler.py - get_iso_country_codes_data:231 - Day file not found, generating from scratch
-2020-05-16 15:01:29 — INFO - data_handler.py - get_iso_country_codes_data:237 - Reading data
-2020-05-16 15:01:29 — INFO - data_handler.py - get_iso_country_codes_data:241 - Formatting data
-2020-05-16 15:01:29 — INFO - data_handler.py - get_iso_country_codes_data:249 - Dropping invalid entries
-2020-05-16 15:01:29 — INFO - data_handler.py - get_iso_country_codes_data:255 - Exporting ISO country codes
-2020-05-16 15:01:29 — INFO - data_handler.py - get_iso_country_codes_data:257 - ISO country codes ready
-2020-05-16 15:01:29 — INFO - data_handler.py - get_regions_continents_data:272 - Generating regions & continents data
-2020-05-16 15:01:29 — INFO - data_handler.py - get_regions_continents_data:283 - Day file not found, generating from scratch
-2020-05-16 15:01:29 — INFO - data_handler.py - get_regions_continents_data:289 - Reading data
-2020-05-16 15:01:30 — INFO - data_handler.py - get_regions_continents_data:293 - Formatting data
-2020-05-16 15:01:30 — INFO - data_handler.py - get_regions_continents_data:299 - Exporting regions & continents data
-2020-05-16 15:01:30 — INFO - data_handler.py - get_regions_continents_data:301 - Regions & continents data ready
-2020-05-16 15:01:30 — INFO - data_handler.py - create_country_level_dataset:320 - Generating Covid-19 country-level dataset
-2020-05-16 15:01:30 — INFO - data_handler.py - create_country_level_dataset:336 - Day file not found, generating from scratch
-2020-05-16 15:01:30 — INFO - data_handler.py - create_country_level_dataset:338 - Formatting data
-2020-05-16 15:01:30 — INFO - data_handler.py - create_country_level_dataset:352 - Filling missing dates
-2020-05-16 15:01:31 — INFO - data_handler.py - create_country_level_dataset:374 - Filling missing countries
-2020-05-16 15:01:31 — INFO - data_handler.py - create_country_level_dataset:385 - Concatenating tidy dataframes
-2020-05-16 15:01:31 — INFO - data_handler.py - create_country_level_dataset:390 - Calculating indicators
-2020-05-16 15:01:31 — INFO - data_handler.py - create_country_level_dataset:401 - Merging continent/regional data
-2020-05-16 15:01:31 — INFO - data_handler.py - create_country_level_dataset:410 - Exporting country-level dataset
-2020-05-16 15:01:32 — INFO - data_handler.py - create_country_level_dataset:412 - Country-level dataset ready
-2020-05-16 15:01:32 — INFO - data_handler.py - generate_usa_datasets:125 - Starting generation of USA state and county-level data
-2020-05-16 15:01:32 — INFO - data_handler.py - generate_usa_state_data:429 - Generating USA state-level data
-2020-05-16 15:01:32 — INFO - data_handler.py - generate_usa_state_data:440 - Day file not found, generating from scratch
-2020-05-16 15:01:32 — INFO - data_handler.py - generate_usa_state_data:452 - Reading data
-2020-05-16 15:01:32 — INFO - data_handler.py - generate_usa_state_data:458 - Adding missing dates
-2020-05-16 15:01:32 — INFO - data_handler.py - generate_usa_state_data:477 - Adding state alpha codes
-2020-05-16 15:01:33 — INFO - data_handler.py - generate_usa_state_data:484 - Adding missing states
-2020-05-16 15:01:33 — INFO - data_handler.py - generate_usa_state_data:495 - Concatenating tidy dataframes
-2020-05-16 15:01:33 — INFO - data_handler.py - generate_usa_state_data:500 - Merging data
-2020-05-16 15:01:33 — INFO - data_handler.py - generate_usa_state_data:504 - Exporting USA state-level data
-2020-05-16 15:01:33 — INFO - data_handler.py - generate_usa_state_data:506 - USA state-level dataset ready
-2020-05-16 15:01:33 — INFO - data_handler.py - generate_usa_county_data:521 - Generating USA county-level dataset
-2020-05-16 15:01:33 — INFO - data_handler.py - generate_usa_county_data:532 - Day file not found, generating from scratch
-2020-05-16 15:01:33 — INFO - data_handler.py - generate_usa_county_data:538 - Reading data
-2020-05-16 15:01:34 — INFO - data_handler.py - generate_usa_county_data:547 - Adding missing dates
-2020-05-16 15:02:14 — INFO - data_handler.py - generate_usa_county_data:566 - Concatenating tidy dataframes
-2020-05-16 15:02:15 — INFO - data_handler.py - generate_usa_county_data:571 - Exporting USA county-level data
-2020-05-16 15:02:16 — INFO - data_handler.py - generate_usa_county_data:573 - USA county-level data ready
-2020-05-16 15:02:16 — INFO - data_handler.py - generate_all_datasets:103 - All data generated
+2020-06-07 12:52:00 — INFO - app.py - <module>:17 - Instantiating dash app
+2020-06-07 12:52:00 — INFO - app.py - <module>:22 - Instantiating data & charting utils
+2020-06-07 12:52:00 — INFO - data_handler.py - __init__:34 - Instantiating data handler
+2020-06-07 12:52:00 — INFO - chart_generator.py - __init__:18 - Instantiating chart generator
+2020-06-07 12:52:00 — INFO - app.py - <module>:27 - Generating dash app layout
+2020-06-07 12:52:00 — INFO - app.py - <module>:445 - Starting server
+2020-06-07 12:52:00 — INFO - dash.py - run_server:1811 - Running on http://127.0.0.1:8050/
+2020-06-07 12:52:00 — INFO - dash.py - run_server:1827 - Debugger PIN: 703-335-299
+2020-06-07 12:52:08 — INFO - data_handler.py - generate_country_level_dataset:106 - Starting generation of country-level data
+2020-06-07 12:52:08 — INFO - data_handler.py - get_latest_ecdc_data:147 - Generating ECDC datsaset
+2020-06-07 12:52:08 — INFO - data_handler.py - generate_country_level_dataset:106 - Starting generation of country-level data
+2020-06-07 12:52:08 — INFO - data_handler.py - get_latest_ecdc_data:158 - Day file not found, generating from scratch
+2020-06-07 12:52:08 — INFO - data_handler.py - get_latest_ecdc_data:147 - Generating ECDC datsaset
+2020-06-07 12:52:08 — INFO - data_handler.py - get_latest_ecdc_data:158 - Day file not found, generating from scratch
+2020-06-07 12:52:08 — INFO - data_handler.py - generate_country_level_dataset:106 - Starting generation of country-level data
+2020-06-07 12:52:08 — INFO - data_handler.py - get_latest_ecdc_data:147 - Generating ECDC datsaset
+2020-06-07 12:52:08 — INFO - data_handler.py - get_latest_ecdc_data:158 - Day file not found, generating from scratch
+2020-06-07 12:52:08 — INFO - data_handler.py - generate_country_level_dataset:106 - Starting generation of country-level data
+2020-06-07 12:52:08 — INFO - data_handler.py - get_latest_ecdc_data:147 - Generating ECDC datsaset
+2020-06-07 12:52:08 — INFO - data_handler.py - get_latest_ecdc_data:158 - Day file not found, generating from scratch
+2020-06-07 12:52:08 — INFO - data_handler.py - generate_country_level_dataset:106 - Starting generation of country-level data
+2020-06-07 12:52:08 — INFO - data_handler.py - get_latest_ecdc_data:147 - Generating ECDC datsaset
+2020-06-07 12:52:08 — INFO - data_handler.py - get_latest_ecdc_data:158 - Day file not found, generating from scratch
+2020-06-07 12:52:08 — DEBUG - connectionpool.py - _new_conn:955 - Starting new HTTPS connection (1): www.ecdc.europa.eu:443
+2020-06-07 12:52:08 — DEBUG - connectionpool.py - _new_conn:955 - Starting new HTTPS connection (1): www.ecdc.europa.eu:443
+2020-06-07 12:52:08 — DEBUG - connectionpool.py - _new_conn:955 - Starting new HTTPS connection (1): www.ecdc.europa.eu:443
+2020-06-07 12:52:08 — DEBUG - connectionpool.py - _new_conn:955 - Starting new HTTPS connection (1): www.ecdc.europa.eu:443
+2020-06-07 12:52:08 — DEBUG - connectionpool.py - _new_conn:955 - Starting new HTTPS connection (1): www.ecdc.europa.eu:443
+2020-06-07 12:52:08 — DEBUG - connectionpool.py - _make_request:428 - https://www.ecdc.europa.eu:443 "GET /sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-2020-06-07.xlsx HTTP/1.1" 200 1025671
+2020-06-07 12:52:08 — DEBUG - connectionpool.py - _make_request:428 - https://www.ecdc.europa.eu:443 "GET /sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-2020-06-07.xlsx HTTP/1.1" 200 1025671
+2020-06-07 12:52:08 — DEBUG - connectionpool.py - _make_request:428 - https://www.ecdc.europa.eu:443 "GET /sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-2020-06-07.xlsx HTTP/1.1" 200 1025671
+2020-06-07 12:52:08 — DEBUG - connectionpool.py - _make_request:428 - https://www.ecdc.europa.eu:443 "GET /sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-2020-06-07.xlsx HTTP/1.1" 200 1025671
+2020-06-07 12:52:08 — DEBUG - connectionpool.py - _make_request:428 - https://www.ecdc.europa.eu:443 "GET /sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-2020-06-07.xlsx HTTP/1.1" 200 1025671
+2020-06-07 12:52:23 — INFO - data_handler.py - get_latest_ecdc_data:201 - Exporting ECDC data
+2020-06-07 12:52:23 — INFO - data_handler.py - get_latest_ecdc_data:201 - Exporting ECDC data
+2020-06-07 12:52:24 — INFO - data_handler.py - get_latest_ecdc_data:201 - Exporting ECDC data
+2020-06-07 12:52:25 — INFO - data_handler.py - get_latest_ecdc_data:201 - Exporting ECDC data
+2020-06-07 12:52:25 — INFO - data_handler.py - get_latest_ecdc_data:203 - ECDC data ready
+2020-06-07 12:52:25 — INFO - data_handler.py - get_iso_country_codes_data:220 - Generating ISO country codes
+2020-06-07 12:52:25 — INFO - data_handler.py - get_iso_country_codes_data:231 - Day file not found, generating from scratch
+2020-06-07 12:52:25 — INFO - data_handler.py - get_iso_country_codes_data:237 - Reading data
+2020-06-07 12:52:25 — INFO - data_handler.py - get_latest_ecdc_data:203 - ECDC data ready
+2020-06-07 12:52:25 — INFO - data_handler.py - get_latest_ecdc_data:201 - Exporting ECDC data
+2020-06-07 12:52:25 — INFO - data_handler.py - get_iso_country_codes_data:220 - Generating ISO country codes
+2020-06-07 12:52:25 — INFO - data_handler.py - get_iso_country_codes_data:231 - Day file not found, generating from scratch
+2020-06-07 12:52:25 — INFO - data_handler.py - get_iso_country_codes_data:237 - Reading data
+2020-06-07 12:52:25 — INFO - data_handler.py - get_latest_ecdc_data:203 - ECDC data ready
+2020-06-07 12:52:25 — INFO - data_handler.py - get_iso_country_codes_data:220 - Generating ISO country codes
+2020-06-07 12:52:25 — INFO - data_handler.py - get_iso_country_codes_data:231 - Day file not found, generating from scratch
+2020-06-07 12:52:25 — INFO - data_handler.py - get_iso_country_codes_data:237 - Reading data
+2020-06-07 12:52:25 — INFO - data_handler.py - get_latest_ecdc_data:203 - ECDC data ready
+2020-06-07 12:52:25 — INFO - data_handler.py - get_iso_country_codes_data:220 - Generating ISO country codes
+2020-06-07 12:52:25 — INFO - data_handler.py - get_iso_country_codes_data:231 - Day file not found, generating from scratch
+2020-06-07 12:52:25 — INFO - data_handler.py - get_iso_country_codes_data:237 - Reading data
+2020-06-07 12:52:25 — INFO - data_handler.py - get_latest_ecdc_data:203 - ECDC data ready
+2020-06-07 12:52:25 — INFO - data_handler.py - get_iso_country_codes_data:220 - Generating ISO country codes
+2020-06-07 12:52:25 — INFO - data_handler.py - get_iso_country_codes_data:231 - Day file not found, generating from scratch
+2020-06-07 12:52:25 — INFO - data_handler.py - get_iso_country_codes_data:237 - Reading data
+2020-06-07 12:52:26 — INFO - data_handler.py - get_iso_country_codes_data:241 - Formatting data
+2020-06-07 12:52:26 — INFO - data_handler.py - get_iso_country_codes_data:249 - Dropping invalid entries
+2020-06-07 12:52:26 — INFO - data_handler.py - get_iso_country_codes_data:255 - Exporting ISO country codes
+2020-06-07 12:52:26 — INFO - data_handler.py - get_iso_country_codes_data:257 - ISO country codes ready
+2020-06-07 12:52:26 — INFO - data_handler.py - get_regions_continents_data:272 - Generating regions & continents data
+2020-06-07 12:52:26 — INFO - data_handler.py - get_regions_continents_data:283 - Day file not found, generating from scratch
+2020-06-07 12:52:26 — INFO - data_handler.py - get_regions_continents_data:289 - Reading data
+2020-06-07 12:52:27 — INFO - data_handler.py - get_iso_country_codes_data:241 - Formatting data
+2020-06-07 12:52:27 — INFO - data_handler.py - get_iso_country_codes_data:249 - Dropping invalid entries
+2020-06-07 12:52:27 — INFO - data_handler.py - get_iso_country_codes_data:255 - Exporting ISO country codes
+2020-06-07 12:52:27 — INFO - data_handler.py - get_iso_country_codes_data:257 - ISO country codes ready
+2020-06-07 12:52:27 — INFO - data_handler.py - get_regions_continents_data:272 - Generating regions & continents data
+2020-06-07 12:52:27 — INFO - data_handler.py - get_regions_continents_data:283 - Day file not found, generating from scratch
+2020-06-07 12:52:27 — INFO - data_handler.py - get_regions_continents_data:289 - Reading data
+2020-06-07 12:52:27 — INFO - data_handler.py - get_iso_country_codes_data:241 - Formatting data
+2020-06-07 12:52:27 — INFO - data_handler.py - get_iso_country_codes_data:249 - Dropping invalid entries
+2020-06-07 12:52:27 — INFO - data_handler.py - get_iso_country_codes_data:255 - Exporting ISO country codes
+2020-06-07 12:52:27 — INFO - data_handler.py - get_iso_country_codes_data:257 - ISO country codes ready
+2020-06-07 12:52:27 — INFO - data_handler.py - get_regions_continents_data:272 - Generating regions & continents data
+2020-06-07 12:52:27 — INFO - data_handler.py - get_regions_continents_data:283 - Day file not found, generating from scratch
+2020-06-07 12:52:27 — INFO - data_handler.py - get_regions_continents_data:289 - Reading data
+2020-06-07 12:52:27 — INFO - data_handler.py - get_iso_country_codes_data:241 - Formatting data
+2020-06-07 12:52:27 — INFO - data_handler.py - get_iso_country_codes_data:249 - Dropping invalid entries
+2020-06-07 12:52:27 — INFO - data_handler.py - get_iso_country_codes_data:255 - Exporting ISO country codes
+2020-06-07 12:52:27 — INFO - data_handler.py - get_iso_country_codes_data:257 - ISO country codes ready
+2020-06-07 12:52:27 — INFO - data_handler.py - get_regions_continents_data:272 - Generating regions & continents data
+2020-06-07 12:52:27 — INFO - data_handler.py - get_regions_continents_data:283 - Day file not found, generating from scratch
+2020-06-07 12:52:27 — INFO - data_handler.py - get_regions_continents_data:289 - Reading data
+2020-06-07 12:52:27 — INFO - data_handler.py - get_iso_country_codes_data:241 - Formatting data
+2020-06-07 12:52:27 — INFO - data_handler.py - get_iso_country_codes_data:249 - Dropping invalid entries
+2020-06-07 12:52:27 — INFO - data_handler.py - get_iso_country_codes_data:255 - Exporting ISO country codes
+2020-06-07 12:52:27 — INFO - data_handler.py - get_iso_country_codes_data:257 - ISO country codes ready
+2020-06-07 12:52:27 — INFO - data_handler.py - get_regions_continents_data:272 - Generating regions & continents data
+2020-06-07 12:52:27 — INFO - data_handler.py - get_regions_continents_data:283 - Day file not found, generating from scratch
+2020-06-07 12:52:27 — INFO - data_handler.py - get_regions_continents_data:289 - Reading data
+2020-06-07 12:52:27 — INFO - data_handler.py - get_regions_continents_data:293 - Formatting data
+2020-06-07 12:52:27 — INFO - data_handler.py - get_regions_continents_data:299 - Exporting regions & continents data
+2020-06-07 12:52:27 — INFO - data_handler.py - get_regions_continents_data:301 - Regions & continents data ready
+2020-06-07 12:52:27 — INFO - data_handler.py - create_country_level_dataset:320 - Generating Covid-19 country-level dataset
+2020-06-07 12:52:27 — INFO - data_handler.py - create_country_level_dataset:336 - Day file not found, generating from scratch
+2020-06-07 12:52:27 — INFO - data_handler.py - create_country_level_dataset:338 - Formatting data
+2020-06-07 12:52:27 — INFO - data_handler.py - create_country_level_dataset:352 - Filling missing dates
+2020-06-07 12:52:29 — INFO - data_handler.py - create_country_level_dataset:374 - Filling missing countries
+2020-06-07 12:52:29 — INFO - data_handler.py - create_country_level_dataset:385 - Concatenating tidy dataframes
+2020-06-07 12:52:29 — INFO - data_handler.py - create_country_level_dataset:390 - Calculating indicators
+2020-06-07 12:52:29 — INFO - data_handler.py - create_country_level_dataset:401 - Merging continent/regional data
+2020-06-07 12:52:30 — INFO - data_handler.py - create_country_level_dataset:410 - Exporting country-level dataset
+2020-06-07 12:52:30 — INFO - data_handler.py - create_country_level_dataset:412 - Country-level dataset ready
+2020-06-07 12:52:30 — INFO - chart_generator.py - generate_animated_scatter_plot:366 - Generating animated scatter plot
+2020-06-07 12:52:30 — INFO - chart_generator.py - generate_animated_scatter_plot:393 - Filtering data
+2020-06-07 12:52:30 — INFO - chart_generator.py - generate_animated_scatter_plot:404 - Generating figure
+2020-06-07 12:52:30 — INFO - data_handler.py - get_regions_continents_data:293 - Formatting data
+2020-06-07 12:52:30 — INFO - data_handler.py - get_regions_continents_data:299 - Exporting regions & continents data
+2020-06-07 12:52:30 — INFO - data_handler.py - get_regions_continents_data:301 - Regions & continents data ready
+2020-06-07 12:52:30 — INFO - data_handler.py - create_country_level_dataset:320 - Generating Covid-19 country-level dataset
+2020-06-07 12:52:30 — INFO - data_handler.py - create_country_level_dataset:331 - Reading from file
+2020-06-07 12:52:30 — INFO - data_handler.py - get_regions_continents_data:293 - Formatting data
+2020-06-07 12:52:30 — INFO - data_handler.py - get_regions_continents_data:299 - Exporting regions & continents data
+2020-06-07 12:52:30 — INFO - data_handler.py - get_regions_continents_data:293 - Formatting data
+2020-06-07 12:52:30 — INFO - data_handler.py - get_regions_continents_data:299 - Exporting regions & continents data
+2020-06-07 12:52:30 — INFO - data_handler.py - get_regions_continents_data:301 - Regions & continents data ready
+2020-06-07 12:52:30 — INFO - data_handler.py - create_country_level_dataset:320 - Generating Covid-19 country-level dataset
+2020-06-07 12:52:30 — INFO - data_handler.py - get_regions_continents_data:301 - Regions & continents data ready
+2020-06-07 12:52:30 — INFO - data_handler.py - create_country_level_dataset:331 - Reading from file
+2020-06-07 12:52:30 — INFO - data_handler.py - create_country_level_dataset:320 - Generating Covid-19 country-level dataset
+2020-06-07 12:52:30 — INFO - data_handler.py - get_regions_continents_data:293 - Formatting data
+2020-06-07 12:52:30 — INFO - data_handler.py - create_country_level_dataset:331 - Reading from file
+2020-06-07 12:52:30 — INFO - data_handler.py - get_regions_continents_data:299 - Exporting regions & continents data
+2020-06-07 12:52:30 — INFO - data_handler.py - get_regions_continents_data:301 - Regions & continents data ready
+2020-06-07 12:52:30 — INFO - data_handler.py - create_country_level_dataset:320 - Generating Covid-19 country-level dataset
+2020-06-07 12:52:30 — INFO - data_handler.py - create_country_level_dataset:331 - Reading from file
+2020-06-07 12:52:30 — INFO - data_handler.py - create_country_level_dataset:333 - Country-level dataset ready
+2020-06-07 12:52:31 — INFO - data_handler.py - create_country_level_dataset:333 - Country-level dataset ready
+2020-06-07 12:52:31 — INFO - data_handler.py - create_country_level_dataset:333 - Country-level dataset ready
+2020-06-07 12:52:31 — INFO - chart_generator.py - generate_animated_bar_chart:250 - Generating animated bar chart
+2020-06-07 12:52:31 — INFO - chart_generator.py - generate_animated_map:135 - Generating animated map
+2020-06-07 12:52:31 — INFO - data_handler.py - create_country_level_dataset:333 - Country-level dataset ready
+2020-06-07 12:52:31 — INFO - chart_generator.py - generate_animated_bar_chart:274 - Filtering data
+2020-06-07 12:52:31 — INFO - chart_generator.py - generate_animated_map:153 - Filtering data
+2020-06-07 12:52:31 — INFO - chart_generator.py - generate_animated_map:162 - Generating figure
+2020-06-07 12:52:31 — INFO - chart_generator.py - generate_animated_bar_chart:310 - Generating figure
+2020-06-07 12:52:40 — INFO - chart_generator.py - generate_animated_map:196 - Formatting figure
+2020-06-07 12:52:40 — INFO - chart_generator.py - generate_animated_map:214 - Animated map generated
+2020-06-07 12:53:10 — INFO - chart_generator.py - generate_animated_bar_chart:322 - Formatting figure
+2020-06-07 12:53:10 — INFO - chart_generator.py - generate_animated_bar_chart:335 - Animated bar chart generated
+2020-06-07 12:53:12 — INFO - chart_generator.py - generate_animated_scatter_plot:422 - Formatting figure
+2020-06-07 12:53:12 — INFO - chart_generator.py - generate_animated_scatter_plot:437 - Animated scatter plot generated
+2020-06-07 12:53:37 — INFO - chart_generator.py - generate_animated_map:135 - Generating animated map
+2020-06-07 12:53:37 — INFO - chart_generator.py - generate_animated_map:153 - Filtering data
+2020-06-07 12:53:37 — INFO - chart_generator.py - generate_animated_map:162 - Generating figure
+2020-06-07 12:53:45 — INFO - chart_generator.py - generate_animated_map:196 - Formatting figure
+2020-06-07 12:53:45 — INFO - chart_generator.py - generate_animated_map:214 - Animated map generated

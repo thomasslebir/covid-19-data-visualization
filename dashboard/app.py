@@ -12,19 +12,19 @@ import pandas as pd
 from scripts.data_handler import CovidDataHandler
 from scripts.chart_generator import CovidChartGenerator
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
-logger.info("Instantiating dash app")
+LOGGER.info("Instantiating dash app")
 external_stylesheets = ['https://codepen.io/dadamson/pen/vPVxxq.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
-logger.info("Instantiating data & charting utils")
+LOGGER.info("Instantiating data & charting utils")
 cdh = CovidDataHandler()
 ccg = CovidChartGenerator(plotly_template="ggplot2", dash=True)
 data_date = pd.Timestamp.today()
 
-logging.info("Generating dash app layout")
+LOGGER.info("Generating dash app layout")
 app.layout = html.Div([
     html.H1("Covid-19 Dashboard",
             id="main-title",
@@ -442,5 +442,5 @@ def download_csv():
 
 
 if __name__ == "__main__":
-    logger.info("Starting server")
+    LOGGER.info("Starting server")
     app.run_server(debug=True)
