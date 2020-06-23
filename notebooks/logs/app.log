@@ -1,0 +1,60 @@
+2020-06-22 20:54:45 — INFO - data_handler.py - __init__:33 - Instantiating data handler
+2020-06-22 20:54:45 — INFO - data_handler.py - generate_country_level_dataset:105 - Starting generation of country-level data
+2020-06-22 20:54:45 — INFO - data_handler.py - get_latest_ecdc_data:146 - Generating ECDC datsaset
+2020-06-22 20:54:45 — INFO - data_handler.py - get_latest_ecdc_data:157 - Day file not found, generating from scratch
+2020-06-22 20:54:45 — DEBUG - connectionpool.py - _new_conn:955 - Starting new HTTPS connection (1): www.ecdc.europa.eu:443
+2020-06-22 20:54:45 — DEBUG - connectionpool.py - _make_request:428 - https://www.ecdc.europa.eu:443 "GET /sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-2020-06-22.xlsx HTTP/1.1" 200 1172184
+2020-06-22 20:54:48 — INFO - data_handler.py - get_latest_ecdc_data:200 - Exporting ECDC data
+2020-06-22 20:54:48 — INFO - data_handler.py - get_latest_ecdc_data:202 - ECDC data ready
+2020-06-22 20:54:48 — INFO - data_handler.py - get_iso_country_codes_data:219 - Generating ISO country codes
+2020-06-22 20:54:48 — INFO - data_handler.py - get_iso_country_codes_data:230 - Day file not found, generating from scratch
+2020-06-22 20:54:48 — INFO - data_handler.py - get_iso_country_codes_data:236 - Reading data
+2020-06-22 20:54:49 — INFO - data_handler.py - get_iso_country_codes_data:240 - Formatting data
+2020-06-22 20:54:49 — INFO - data_handler.py - get_iso_country_codes_data:248 - Dropping invalid entries
+2020-06-22 20:54:49 — INFO - data_handler.py - get_iso_country_codes_data:254 - Exporting ISO country codes
+2020-06-22 20:54:49 — INFO - data_handler.py - get_iso_country_codes_data:256 - ISO country codes ready
+2020-06-22 20:54:49 — INFO - data_handler.py - get_regions_continents_data:271 - Generating regions & continents data
+2020-06-22 20:54:49 — INFO - data_handler.py - get_regions_continents_data:282 - Day file not found, generating from scratch
+2020-06-22 20:54:49 — INFO - data_handler.py - get_regions_continents_data:288 - Reading data
+2020-06-22 20:54:49 — INFO - data_handler.py - get_regions_continents_data:292 - Formatting data
+2020-06-22 20:54:49 — INFO - data_handler.py - get_regions_continents_data:298 - Exporting regions & continents data
+2020-06-22 20:54:49 — INFO - data_handler.py - get_regions_continents_data:300 - Regions & continents data ready
+2020-06-22 20:54:49 — INFO - data_handler.py - create_country_level_dataset:319 - Generating Covid-19 country-level dataset
+2020-06-22 20:54:49 — INFO - data_handler.py - create_country_level_dataset:335 - Day file not found, generating from scratch
+2020-06-22 20:54:49 — INFO - data_handler.py - create_country_level_dataset:337 - Formatting data
+2020-06-22 20:54:49 — INFO - data_handler.py - create_country_level_dataset:351 - Filling missing dates
+2020-06-22 20:54:51 — INFO - data_handler.py - create_country_level_dataset:373 - Filling missing countries
+2020-06-22 20:54:51 — INFO - data_handler.py - create_country_level_dataset:384 - Concatenating tidy dataframes
+2020-06-22 20:54:51 — INFO - data_handler.py - create_country_level_dataset:389 - Calculating indicators
+2020-06-22 20:54:51 — INFO - data_handler.py - create_country_level_dataset:400 - Merging continent/regional data
+2020-06-22 20:54:51 — INFO - data_handler.py - create_country_level_dataset:409 - Exporting country-level dataset
+2020-06-22 20:54:52 — INFO - data_handler.py - create_country_level_dataset:411 - Country-level dataset ready
+2020-06-22 20:54:52 — INFO - chart_generator.py - __init__:18 - Instantiating chart generator
+2020-06-22 20:57:18 — INFO - data_handler.py - __init__:33 - Instantiating data handler
+2020-06-22 20:57:18 — INFO - data_handler.py - generate_country_level_dataset:105 - Starting generation of country-level data
+2020-06-22 20:57:18 — INFO - data_handler.py - get_latest_ecdc_data:146 - Generating ECDC datsaset
+2020-06-22 20:57:18 — INFO - data_handler.py - get_latest_ecdc_data:152 - Reading from file
+2020-06-22 20:57:18 — INFO - data_handler.py - get_latest_ecdc_data:154 - ECDC data ready
+2020-06-22 20:57:18 — INFO - data_handler.py - get_iso_country_codes_data:219 - Generating ISO country codes
+2020-06-22 20:57:18 — INFO - data_handler.py - get_iso_country_codes_data:225 - Reading from file
+2020-06-22 20:57:18 — INFO - data_handler.py - get_iso_country_codes_data:227 - ISO country codes ready
+2020-06-22 20:57:18 — INFO - data_handler.py - get_regions_continents_data:271 - Generating regions & continents data
+2020-06-22 20:57:18 — INFO - data_handler.py - get_regions_continents_data:277 - Reading from file
+2020-06-22 20:57:18 — INFO - data_handler.py - get_regions_continents_data:279 - Regions & continents data ready
+2020-06-22 20:57:18 — INFO - data_handler.py - create_country_level_dataset:319 - Generating Covid-19 country-level dataset
+2020-06-22 20:57:18 — INFO - data_handler.py - create_country_level_dataset:330 - Reading from file
+2020-06-22 20:57:18 — INFO - data_handler.py - create_country_level_dataset:332 - Country-level dataset ready
+2020-06-22 20:57:18 — INFO - chart_generator.py - __init__:18 - Instantiating chart generator
+2020-06-22 20:58:28 — DEBUG - diff.py - update:213 - diff parser start
+2020-06-22 20:58:28 — DEBUG - diff.py - update:224 - line_lengths old: 5; new: 1
+2020-06-22 20:58:28 — DEBUG - diff.py - update:227 - -> code[replace] old[1:5] new[1:1]
+2020-06-22 20:58:28 — DEBUG - diff.py - _parse:337 - parse_part from 1 to 1 (to 0 in part parser)
+2020-06-22 20:58:28 — DEBUG - diff.py - update:264 - diff parser end
+2020-06-22 20:58:28 — DEBUG - cache.py - _load_from_file_system:143 - pickle loaded: /Users/thomasslebir/opt/anaconda3/envs/covid_viz_env/lib/python3.8/site-packages/jedi/third_party/typeshed/stdlib/2and3/builtins.pyi
+2020-06-22 20:58:29 — DEBUG - cache.py - _load_from_file_system:143 - pickle loaded: /Users/thomasslebir/opt/anaconda3/envs/covid_viz_env/lib/python3.8/site-packages/jedi/third_party/typeshed/stdlib/3/sys.pyi
+2020-06-22 20:58:29 — DEBUG - cache.py - _load_from_file_system:143 - pickle loaded: /Users/thomasslebir/opt/anaconda3/envs/covid_viz_env/lib/python3.8/site-packages/pandas/core/frame.py
+2020-06-22 20:59:18 — INFO - chart_generator.py - generate_animated_map:135 - Generating animated map
+2020-06-22 20:59:18 — INFO - chart_generator.py - generate_animated_map:153 - Filtering data
+2020-06-22 20:59:18 — INFO - chart_generator.py - generate_animated_map:162 - Generating figure
+2020-06-22 20:59:24 — INFO - chart_generator.py - generate_animated_map:196 - Formatting figure
+2020-06-22 20:59:24 — INFO - chart_generator.py - generate_animated_map:214 - Animated map generated
