@@ -4,3 +4,4 @@ __pycache__
 .vscode
 default.profraw
 iframe_figures
+notebooks/dask-worker-space
